@@ -1,8 +1,5 @@
-const response = (res, status, data) => {
-    const result = {};
-    result.status = status || 200;
-    result.data = data;
-    return res.status(result.status).send(result);
+exports.resCustom = (res, { status, msg, data }) => {
+    if (data) return res.status(status).json({ msg, data });
+    return res.status(status).json({ msg });
 };
-
-module.exports = response;
+exports.customResponse = (status, msg, data) => ({ status, msg, data });

@@ -4,13 +4,17 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const userRoutes = require('./src');
+const routeNav = require('./src');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// Route
-app.use('/api/telkom/v1', userRoutes);
+app.get('/', (req, res) => {
+    res.status(200).send('Hello World');
+});
+app.use('/api/telkom/v1', routeNav);
 
-app.listen(PORT, () => console.log(`Server running on PORT : ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

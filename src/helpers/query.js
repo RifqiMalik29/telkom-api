@@ -7,4 +7,4 @@ module.exports = (query, payload = null) => {
             resolve(result);
         });
     });
-};
+}
