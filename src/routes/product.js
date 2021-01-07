@@ -2,7 +2,7 @@ const productController = require("../controllers/product");
 const router = require("express").Router();
 
 router
-  .get("/", productController.getAllProduct)
+  .get("/search/query", productController.getAllProduct)
   .post("/", productController.postProduct)
   .get("/:id", productController.getProductById)
   .patch("/:id", productController.updateProduct)

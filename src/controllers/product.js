@@ -3,8 +3,12 @@ const { resCustom, customResponse } = require('../helpers/response');
 
 const getAllProduct = async (req, res) => {
     try {
-        const result = await productModel.getAllProduct();
-        const response = customResponse(200, 'OK', result);
+        const { q, page, limit } = req.query;
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const result = await productModel.getAllProduct(q, page, limit);
+        const resultPagination = result.slice(startIndex, endIndex)
+        const response = customResponse(200, { msg: 'OK', page: page}, resultPagination);
 
         resCustom(res, response);
     } catch(err) {
