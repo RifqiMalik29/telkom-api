@@ -32,15 +32,15 @@ const postLogin = async (req, res) => {
         const setData = req.body;
         const result = await authModel.checkUser(setData);
         if (!result[0]){
-            res.status(401).send({ message: 'Email no found' });
+            res.status(401).send({ message: 'Email not found' });
         }
         let check = true;
         if (result[0].role != 6){
             check = bcrypt.compareSync(setData.password, result[0].password);
         }
         if (check){
-            const { id, name, email, phone, pin, photo } = result[0];
-            const token = jwt.sign({ id, name, email, phone, pin, photo }, process.env.PRIVATE_KEY);
+            const { id, name, email, phone, pin, photo, role } = result[0];
+            const token = jwt.sign({ id, name, email, phone, pin, photo, role }, process.env.PRIVATE_KEY);
             let roles = 'user';
             if (role == 6){
                 roles = 'admin'
