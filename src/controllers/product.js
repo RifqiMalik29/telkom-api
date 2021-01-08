@@ -1,14 +1,30 @@
 const productModel = require('../models/product');
 const { resCustom, customResponse } = require('../helpers/response');
 
-const getAllProduct = async (req, res) => {
+const getAllProductAsc = async (req, res) => {
     try {
         const { q, page, limit } = req.query;
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
-        const result = await productModel.getAllProduct(q, page, limit);
+        const result = await productModel.getAllProductAsc(q, page, limit);
         const resultPagination = result.slice(startIndex, endIndex)
         const response = customResponse(200, { msg: 'OK', page: page}, resultPagination);
+
+        resCustom(res, response);
+    } catch(err) {
+        const response = customResponse(404, err.message);
+        resCustom(res, response);
+    }
+};
+
+const getAllProductDesc = async (req, res) => {
+    try {
+        const { q, page, limit } = req.query;
+        const startIndex = (page - 1) * limit;
+        const endIndex = page * limit;
+        const result = await productModel.getAllProductDesc(q, page, limit);
+        const resultPagination = result.slice(startIndex, endIndex);
+        const response = customResponse(200, { msg: 'OK', page: page }, resultPagination);
 
         resCustom(res, response);
     } catch(err) {
@@ -70,4 +86,4 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-module.exports = { getAllProduct, getProductById, postProduct, updateProduct, deleteProduct }
+module.exports = { getAllProductAsc, getAllProductDesc, getProductById, postProduct, updateProduct, deleteProduct }
