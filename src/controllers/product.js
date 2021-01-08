@@ -1,5 +1,6 @@
 const productModel = require('../models/product');
-const { resCustom, customResponse } = require('../helpers/response');
+const { resCustom, customResponse } = require('../helpers/res');
+const { response } = require('../helpers');
 
 const getAllProductAsc = async (req, res) => {
     try {

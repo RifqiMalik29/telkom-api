@@ -39,8 +39,8 @@ const postLogin = async (req, res) => {
             check = bcrypt.compareSync(setData.password, result[0].password);
         }
         if (check){
-            const { id, name, email, phone, pin, photo, role } = result[0];
-            const token = jwt.sign({ id, name, email, phone, pin, photo, role }, process.env.PRIVATE_KEY);
+            const { user_id, name, email, phone, pin, photo, role, owner } = result[0];
+            const token = jwt.sign({ user_id, name, email, phone, pin, photo, role, owner }, process.env.PRIVATE_KEY);
             let roles = 'user';
             if (role == 6){
                 roles = 'admin'

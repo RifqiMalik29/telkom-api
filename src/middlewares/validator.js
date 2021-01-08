@@ -10,8 +10,11 @@ module.exports = {
     .isEmail()
     .normalizeEmail()
     .withMessage("Must be valid email"),
+
   requiredPassword: check("password")
     .trim()
     .isLength({ min: 6, max: 14 })
     .withMessage("Must be between 6 and 14 characters"),
+
+  requiredChecklist: check("checklist").isNumeric(),
 };
